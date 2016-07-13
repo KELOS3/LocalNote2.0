@@ -13,7 +13,7 @@ import java.awt.*;
 public class noteFrame extends JInternalFrame{
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
-    private TextArea textArea = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
+    TextArea textArea = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
 
     
     public noteFrame() {
@@ -34,4 +34,5 @@ public class noteFrame extends JInternalFrame{
         this.getContentPane().add(textArea);
         setLocation(xOffset, yOffset*openFrameCount);
     }
+    
 }
