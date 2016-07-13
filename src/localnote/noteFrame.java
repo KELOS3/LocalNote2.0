@@ -32,6 +32,6 @@ public class noteFrame extends JInternalFrame{
         this.textArea.setFont(new Font("Century Gothic", Font.BOLD, 12));
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(textArea);
-        setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
+        setLocation(xOffset, yOffset*openFrameCount);
     }
 }

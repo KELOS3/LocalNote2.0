@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
+ * 
+ * 
  */
 package localnote;
 
@@ -25,11 +25,9 @@ public class LocalNote extends JFrame
     
     JDesktopPane desktop;
     
-
-    
     public LocalNote() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(screenSize);
+        Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        this.setSize(window.getSize());
         this.setTitle("Local Note");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
@@ -37,8 +35,7 @@ public class LocalNote extends JFrame
         this.setContentPane(desktop);
         this.setJMenuBar(createMenues());
         
-        desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
-        
+        desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE); 
     }
             
 
@@ -47,12 +44,12 @@ public class LocalNote extends JFrame
     private JMenuBar createMenues() {
         JMenuBar menuBar = new JMenuBar();
 
-        //Set up the lone menu.
+        //Menu Creation
         JMenu menu = new JMenu("File");
         menu.setMnemonic(KeyEvent.VK_D);
         menuBar.add(menu);
 
-        //Set up the first menu item.
+        //File->New
         JMenuItem menuItem = new JMenuItem("New");
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -60,8 +57,26 @@ public class LocalNote extends JFrame
         menuItem.setActionCommand("new");
         menuItem.addActionListener(this);
         menu.add(menuItem);
+        
+        //File->Open
+        menuItem = new JMenuItem("Open");
+        menuItem.setMnemonic(KeyEvent.VK_O);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_O, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("Open");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+        
+        //File->Save
+        menuItem = new JMenuItem("Save");
+        menuItem.setMnemonic(KeyEvent.VK_S);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_S, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("save");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
 
-        //Set up the second menu item.
+        //File->Quit
         menuItem = new JMenuItem("Quit");
         menuItem.setMnemonic(KeyEvent.VK_Q);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
@@ -72,16 +87,21 @@ public class LocalNote extends JFrame
 
         return menuBar;
     }
-        //React to menu selections.
+    
+    //React to menu selections.
     public void actionPerformed(ActionEvent e) {
         if ("new".equals(e.getActionCommand())) { //new
             createFrame();
+        } else if ("save".equals(e.getActionCommand())) { //new
+            save();
+        } else if ("open".equals(e.getActionCommand())) { //new
+            open();
         } else if ("quit".equals(e.getActionCommand())) { //new
             quit();
         }
     }
     
-        //Create a new internal frame.
+    //Create a new internal frame.
     protected void createFrame() {
         noteFrame frame = new noteFrame();
         frame.setVisible(true); //necessary as of 1.3
@@ -90,13 +110,20 @@ public class LocalNote extends JFrame
             frame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {}
     }
+    
+    protected void open(){
+        //Needs work
+    }
+    
+    protected void save(){
+        //Needs Work
+    }
 
     //Quit the application.
     protected void quit() {
         System.exit(0);
     }
-    private static void createAndShowGUI() {
-        //Make sure we have nice window decorations.
+    private static void createGUI() {
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         //Create and set up the window.
@@ -108,11 +135,9 @@ public class LocalNote extends JFrame
     }
 
     public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                createGUI();
             }
         });
     }
