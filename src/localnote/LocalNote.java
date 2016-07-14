@@ -158,12 +158,23 @@ public class LocalNote extends JFrame
         //dump(i, 0, 0);
         if (i instanceof noteFrame) {
             noteFrame n = (noteFrame) i;
-            if (n.path.isEmpty()) {
+            //System.out.println("Path: "+n.path);
+            if (n.path == null) {
                 JFileChooser saver = new JFileChooser();
                 int option = saver.showSaveDialog(n);
+                File current = saver.getSelectedFile();
+                String path = current.getAbsolutePath();
+                String filename = current.getName();
+                if (!path.endsWith(".txt")) {
+                    path = path + ".txt";
+                    filename = filename + ".txt";
+                }
+                n.path = path;
+                n.setTitle(filename);
+                n.title = filename;
                 if (option == JFileChooser.APPROVE_OPTION) {
                     try {
-                        BufferedWriter out = new BufferedWriter(new FileWriter(n.getPath()));
+                        BufferedWriter out = new BufferedWriter(new FileWriter(path));
                         out.write(n.textArea.getText());
                         out.close();
                     } catch (Exception ex) {
