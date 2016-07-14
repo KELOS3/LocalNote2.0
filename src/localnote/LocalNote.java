@@ -105,7 +105,7 @@ public class LocalNote extends JFrame
     //Create a new internal frame.
     protected void createFrame() {
         noteFrame frame = new noteFrame();
-        frame.setVisible(true); //necessary as of 1.3
+        frame.setVisible(true);
         desktop.add(frame);
         try {
             frame.setSelected(true);
@@ -116,11 +116,12 @@ public class LocalNote extends JFrame
     protected void open() {
         final JFileChooser open = new JFileChooser();
         int option = open.showOpenDialog(this);
-        noteFrame frame = new noteFrame();
-        frame.setVisible(true); //necessary as of 1.3
-        desktop.add(frame);
-        System.out.println("Open: " + frame);
+
+        //System.out.println("Open: " + frame);
         if (option == JFileChooser.APPROVE_OPTION) {
+            noteFrame frame = new noteFrame();
+            frame.setVisible(true);
+            desktop.add(frame);
             frame.textArea.setText("");
             try {
                 File current = open.getSelectedFile();
