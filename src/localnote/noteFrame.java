@@ -10,29 +10,45 @@ import javax.swing.JInternalFrame;
 import java.awt.event.*;
 import java.awt.*;
 
-public class noteFrame extends JInternalFrame{
+public class noteFrame extends JInternalFrame {
+
     static int openFrameCount = 0;
     static final int xOffset = 30, yOffset = 30;
     TextArea textArea = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
+    String path, title;
 
-    
     public noteFrame() {
-        super("Document #" + (++openFrameCount), 
-              true, //resizable
-              true, //closable
-              true, //maximizable
-              true);//iconifiable
+        super("Document #" + (++openFrameCount),
+                true, //resizable
+                true, //closable
+                true, //maximizable
+                true);//iconifiable
+
+        System.out.println("Note Frame: " + this);
+        System.out.println("textArea: " + textArea);
 
         //...Create the GUI and put it in the window...
-
         //...Then set the window size or call pack...
-        setSize(300,300);
+        setSize(300, 300);
 
         //Set the window's location.
         this.textArea.setFont(new Font("Century Gothic", Font.BOLD, 12));
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(textArea);
-        setLocation(xOffset, yOffset*openFrameCount);
+        setLocation(xOffset, yOffset * openFrameCount);
+
     }
-    
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public Component getTextArea() {
+        return textArea;
+    }
+
 }

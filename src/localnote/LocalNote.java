@@ -119,22 +119,69 @@ public class LocalNote extends JFrame
         noteFrame frame = new noteFrame();
         frame.setVisible(true); //necessary as of 1.3
         desktop.add(frame);
+        System.out.println("Open: " + frame);
         if (option == JFileChooser.APPROVE_OPTION) {
-                frame.textArea.setText("");
-                try {
-                    frame.setTitle(open.getSelectedFile().getName());
-                    Scanner scan = new Scanner(new FileReader(open.getSelectedFile().getPath()));
-                    while (scan.hasNext()) {
-                        frame.textArea.append(scan.nextLine() + "\n");
+            frame.textArea.setText("");
+            try {
+                File current = open.getSelectedFile();
+                String filename = current.getName();
+                String filepath = current.getPath();
+                frame.setTitle(filename);
+                frame.title = filename;
+                frame.path = filepath;
+                Scanner scan = new Scanner(new FileReader(filepath));
+                while (scan.hasNext()) {
+                    frame.textArea.append(scan.nextLine() + "\n");
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+    }
+
+    /**
+     *
+     *
+     * protected void dump(Component x, int depth, int id) {
+     * System.out.println("Depth: " + depth + " ID: " + id + " Component: " +
+     * x); if (depth < 3) {
+     *
+     * if (x instanceof Container) { Container XX = (Container) x; int n =
+     * XX.getComponentCount(); for (int i = 0; i < n; i++) {
+     * dump(XX.getComponent(i), depth + 1, i); } } } }
+     *
+     */
+    protected void saveNote() {
+        Component i = desktop.getSelectedFrame();
+        //dump(i, 0, 0);
+        if (i instanceof noteFrame) {
+            noteFrame n = (noteFrame) i;
+            if (n.path.isEmpty()) {
+                JFileChooser saver = new JFileChooser();
+                int option = saver.showSaveDialog(n);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        BufferedWriter out = new BufferedWriter(new FileWriter(n.getPath()));
+                        out.write(n.textArea.getText());
+                        out.close();
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
                     }
+                }
+            } else {
+                try {
+                    BufferedWriter out = new BufferedWriter(new FileWriter(n.getPath()));
+                    out.write(n.textArea.getText());
+                    out.close();
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
             }
-    }
 
-    protected void saveNote() {
-
+        } else {
+            System.out.println("Save: Unexpected Frame: " + i);
+        }
     }
 
     //Quit the application.
