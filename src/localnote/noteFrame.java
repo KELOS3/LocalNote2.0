@@ -5,10 +5,9 @@
  */
 package localnote;
 
-import javax.swing.JInternalFrame;
-
-import java.awt.event.*;
 import java.awt.*;
+
+import javax.swing.*;
 
 public class noteFrame extends JInternalFrame {
 
@@ -23,9 +22,6 @@ public class noteFrame extends JInternalFrame {
                 true, //closable
                 true, //maximizable
                 true);//iconifiable
-
-        System.out.println("Note Frame: " + this);
-        System.out.println("textArea: " + textArea);
 
         //...Create the GUI and put it in the window...
         //...Then set the window size or call pack...

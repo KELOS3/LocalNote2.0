@@ -28,7 +28,6 @@ public class LocalNote extends JFrame
         this.setSize(window.getSize());
         this.setTitle("Local Note");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         desktop = new JDesktopPane();
         this.setContentPane(desktop);
         this.setJMenuBar(createMenues());
@@ -192,6 +191,8 @@ public class LocalNote extends JFrame
 
         //Help->About
         menuItem = new JMenuItem("About");
+        menuItem.setActionCommand("about");
+        menuItem.addActionListener(this);
         menu.add(menuItem);
 
 
@@ -208,6 +209,9 @@ public class LocalNote extends JFrame
             open();
         } else if ("quit".equals(e.getActionCommand())) { //quit
             quit();
+        }
+          else if ("about".equals(e.getActionCommand())) { //about
+            about();
         }
           else if ("email".equals(e.getActionCommand())) { //email
             try {
@@ -316,9 +320,24 @@ public class LocalNote extends JFrame
         System.exit(0);
     }
 
+    //Creates 'About' Note
+    protected void about() {
+        noteFrame frame = new noteFrame();
+        frame.setVisible(true);
+        frame.textArea.setText("LocalNote\n\nVersion1.0\n\n\u00a9 Team JBMH. All rights reserved.\n\n" +
+        "This software was created by Team JBMH.\n" +
+        "LocalNote was created for academic purposes and should not be redistributed or reproduced.");
+        frame.textArea.setEditable(false);
+        frame.title = "About";
+        desktop.add(frame);
+        try {
+            frame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }
+
     //Send support email
     protected void email(String sub) throws IOException, URISyntaxException {
-        String subject = sub;
         if (Desktop.isDesktopSupported()
             && (desktopEmail = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
           URI mailto = new URI("mailto:localnoteadmin@gmail.com?subject=" + sub);
