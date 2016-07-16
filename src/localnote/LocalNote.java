@@ -123,7 +123,7 @@ public class LocalNote extends JFrame
         //Edit->Search
         menuItem = new JMenuItem("Search...");
         menu.add(menuItem);
-        
+
         //Edit->Restore Notes
         menuItem = new JMenuItem("Restore Deleted Notes");
         menu.add(menuItem);
@@ -177,6 +177,7 @@ public class LocalNote extends JFrame
         //Help->About
         menuItem = new JMenuItem("About");
         menu.add(menuItem);
+
 
         return menuBar;
     }
