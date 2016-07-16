@@ -8,6 +8,7 @@ package localnote;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.net.*;
 import java.util.*;
 
 import javax.swing.*;
@@ -20,6 +21,7 @@ public class LocalNote extends JFrame
         implements ActionListener {
 
     JDesktopPane desktop;
+    Desktop desktopEmail;
 
     public LocalNote() {
         Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -92,6 +94,15 @@ public class LocalNote extends JFrame
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
+        //Edit->Cut
+        menuItem = new JMenuItem("Cut");
+        menuItem.setMnemonic(KeyEvent.VK_X);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_X, ActionEvent.CTRL_MASK));
+        menuItem.setActionCommand("cut");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
         //Edit->Copy
         menuItem = new JMenuItem("Copy");
         menuItem.setMnemonic(KeyEvent.VK_C);
@@ -137,12 +148,17 @@ public class LocalNote extends JFrame
         menuItem.setMnemonic(KeyEvent.VK_S);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_R, ActionEvent.ALT_MASK));
-        menuItem.setActionCommand("report");
+        menuItem.setActionCommand("bug");
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
         //Support->Contact Support
         menuItem = new JMenuItem("Contact Support");
+        menuItem.setMnemonic(KeyEvent.VK_C);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_C, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("email");
+        menuItem.addActionListener(this);
         menu.add(menuItem);
 
         //Help Menu Creation
@@ -193,6 +209,24 @@ public class LocalNote extends JFrame
         } else if ("quit".equals(e.getActionCommand())) { //quit
             quit();
         }
+          else if ("email".equals(e.getActionCommand())) { //email
+            try {
+                email("Local%20Note%20Help");
+            } catch ( IOException x ) {
+                x.printStackTrace();
+            } catch ( URISyntaxException x ) {
+                x.printStackTrace();
+            }
+        }
+          else if ("bug".equals(e.getActionCommand())) { //bug report
+              try {
+                  email("Bug%20Report");
+              } catch ( IOException x ) {
+                  x.printStackTrace();
+              } catch ( URISyntaxException x ) {
+                  x.printStackTrace();
+              }
+          }
     }
 
     //Create a new internal frame.
@@ -282,6 +316,19 @@ public class LocalNote extends JFrame
         System.exit(0);
     }
 
+    //Send support email
+    protected void email(String sub) throws IOException, URISyntaxException {
+        String subject = sub;
+        if (Desktop.isDesktopSupported()
+            && (desktopEmail = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
+          URI mailto = new URI("mailto:localnoteadmin@gmail.com?subject=" + sub);
+          desktopEmail.mail(mailto);
+        } else {
+          // TODO fallback to some Runtime.exec(..) voodoo?
+          throw new RuntimeException("desktop doesn't support mailto; mail is dead anyway ;)");
+        }
+
+    }
     private static void createGUI() {
         JFrame.setDefaultLookAndFeelDecorated(true);
 
