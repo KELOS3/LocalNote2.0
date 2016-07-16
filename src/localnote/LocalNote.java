@@ -1,23 +1,16 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package localnote;
 
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
-import javax.swing.JFrame;
-import javax.swing.KeyStroke;
-import javax.swing.JFileChooser;
-
-import java.awt.event.*;
 import java.awt.*;
-import java.util.Scanner;
+import java.awt.event.*;
 import java.io.*;
+import java.util.*;
+
+import javax.swing.*;
 
 /**
  *
@@ -45,7 +38,7 @@ public class LocalNote extends JFrame
     private JMenuBar createMenues() {
         JMenuBar menuBar = new JMenuBar();
 
-        //Menu Creation
+        //File Menu Creation
         JMenu menu = new JMenu("File");
         menu.setMnemonic(KeyEvent.VK_D);
         menuBar.add(menu);
@@ -84,6 +77,105 @@ public class LocalNote extends JFrame
                 KeyEvent.VK_Q, ActionEvent.ALT_MASK));
         menuItem.setActionCommand("quit");
         menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        //Edit Menu Creation
+        menu = new JMenu("Edit");
+        menuBar.add(menu);
+
+        //Edit->Select All
+        menuItem = new JMenuItem("Select All");
+        menuItem.setMnemonic(KeyEvent.VK_A);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+        menuItem.setActionCommand("select");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        //Edit->Copy
+        menuItem = new JMenuItem("Copy");
+        menuItem.setMnemonic(KeyEvent.VK_C);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+        menuItem.setActionCommand("copy");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        //Edit->Paste
+        menuItem = new JMenuItem("Paste");
+        menuItem.setMnemonic(KeyEvent.VK_V);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_V, ActionEvent.CTRL_MASK));
+        menuItem.setActionCommand("paste");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        //Edit->Undo
+        menuItem = new JMenuItem("Undo");
+        menuItem.setMnemonic(KeyEvent.VK_Z);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
+        menuItem.setActionCommand("undo");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+        menu.addSeparator();
+
+        //Edit->Search
+        menuItem = new JMenuItem("Search...");
+        menu.add(menuItem);
+        
+        //Edit->Restore Notes
+        menuItem = new JMenuItem("Restore Deleted Notes");
+        menu.add(menuItem);
+
+        //Support Menu Creation
+        menu = new JMenu("Support");
+        menuBar.add(menu);
+
+        //Support->Report Bug
+        menuItem = new JMenuItem("Report Bug");
+        menuItem.setMnemonic(KeyEvent.VK_S);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(
+                KeyEvent.VK_R, ActionEvent.ALT_MASK));
+        menuItem.setActionCommand("report");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+
+        //Support->Contact Support
+        menuItem = new JMenuItem("Contact Support");
+        menu.add(menuItem);
+
+        //Help Menu Creation
+        menu = new JMenu("Help");
+        menuBar.add(menu);
+
+        //Help->Help Topics
+        JMenu subMenu = new JMenu("Help Topics");
+        menu.add(subMenu);
+
+        //Help->Help Topics->Opening Notebook
+        menuItem = new JMenuItem("Opening Notebook");
+        subMenu.add(menuItem);
+
+        //Help->Help Topics->Closing Notebook
+        menuItem = new JMenuItem("Closing Notebook");
+        subMenu.add(menuItem);
+
+        //Help->Help Topics->Reminders
+        menuItem = new JMenuItem("Reminders");
+        subMenu.add(menuItem);
+
+        //Help->Help Topics->Text Messaging
+        menuItem = new JMenuItem("Text Messaging");
+        subMenu.add(menuItem);
+
+        //Help->Help Topics->Hiding Notes
+        menuItem = new JMenuItem("Hiding Notes");
+        subMenu.add(menuItem);
+        menu.addSeparator();
+
+        //Help->About
+        menuItem = new JMenuItem("About");
         menu.add(menuItem);
 
         return menuBar;
@@ -141,18 +233,6 @@ public class LocalNote extends JFrame
 
     }
 
-    /**
-     *
-     *
-     * protected void dump(Component x, int depth, int id) {
-     * System.out.println("Depth: " + depth + " ID: " + id + " Component: " +
-     * x); if (depth < 3) {
-     *
-     * if (x instanceof Container) { Container XX = (Container) x; int n =
-     * XX.getComponentCount(); for (int i = 0; i < n; i++) {
-     * dump(XX.getComponent(i), depth + 1, i); } } } }
-     *
-     */
     protected void saveNote() {
         Component i = desktop.getSelectedFrame();
         //dump(i, 0, 0);
