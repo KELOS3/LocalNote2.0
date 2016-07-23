@@ -15,6 +15,7 @@ public class noteFrame extends JInternalFrame {
     static final int xOffset = 30, yOffset = 30;
     TextArea textArea = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
     String path, title;
+    ImageIcon titleIcon = new ImageIcon();
 
     public noteFrame() {
         super("Document #" + (++openFrameCount),
@@ -26,6 +27,11 @@ public class noteFrame extends JInternalFrame {
         //...Create the GUI and put it in the window...
         //...Then set the window size or call pack...
         setSize(300, 300);
+        this.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        this.setFrameIcon(titleIcon);
+
+        //Removes title bar, icon, and min/max buttons, but leaves behind artifacts when dragged.
+//        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         //Set the window's location.
         this.textArea.setFont(new Font("Century Gothic", Font.BOLD, 12));

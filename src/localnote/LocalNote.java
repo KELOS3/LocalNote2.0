@@ -4,7 +4,6 @@
  *
  */
 package localnote;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -25,19 +24,22 @@ public class LocalNote extends JFrame
 
     public LocalNote() {
         Rectangle window = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+
         this.setSize(window.getSize());
         this.setTitle("Local Note");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         desktop = new JDesktopPane();
         this.setContentPane(desktop);
-        this.setJMenuBar(createMenues());
 
+        this.setJMenuBar(createMenues());
         desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
 
     }
 
     private JMenuBar createMenues() {
         JMenuBar menuBar = new JMenuBar();
+        JMenuItem menuItem;
+        JMenu subMenu;
 
         //File Menu Creation
         JMenu menu = new JMenu("File");
@@ -45,13 +47,23 @@ public class LocalNote extends JFrame
         menuBar.add(menu);
 
         //File->New
-        JMenuItem menuItem = new JMenuItem("New");
-        menuItem.setMnemonic(KeyEvent.VK_N);
-        menuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_N, ActionEvent.ALT_MASK));
+        subMenu = new JMenu("New");
+        subMenu.setMnemonic(KeyEvent.VK_N);
+        menu.add(subMenu);
+
+        //File->New->Text
+        menuItem = new JMenuItem("Text");
         menuItem.setActionCommand("new");
         menuItem.addActionListener(this);
-        menu.add(menuItem);
+        subMenu.add(menuItem);
+
+        //File->New->Audio
+        menuItem = new JMenuItem("Audio");
+        subMenu.add(menuItem);
+
+        //File->New->Image
+        menuItem = new JMenuItem("Image");
+        subMenu.add(menuItem);
 
         //File->Open
         menuItem = new JMenuItem("Open");
@@ -165,7 +177,7 @@ public class LocalNote extends JFrame
         menuBar.add(menu);
 
         //Help->Help Topics
-        JMenu subMenu = new JMenu("Help Topics");
+        subMenu = new JMenu("Help Topics");
         menu.add(subMenu);
 
         //Help->Help Topics->Opening Notebook
@@ -340,23 +352,24 @@ public class LocalNote extends JFrame
     protected void email(String sub) throws IOException, URISyntaxException {
         if (Desktop.isDesktopSupported()
             && (desktopEmail = Desktop.getDesktop()).isSupported(Desktop.Action.MAIL)) {
-          URI mailto = new URI("mailto:localnoteadmin@gmail.com?subject=" + sub);
+          URI mailto = new URI("mailto:localnote499@gmail.com?subject=" + sub);
           desktopEmail.mail(mailto);
+//          Local Note <localnote499@gmail.com>
+//          Password JBMH-499
         } else {
-          // TODO fallback to some Runtime.exec(..) voodoo?
-          throw new RuntimeException("desktop doesn't support mailto; mail is dead anyway ;)");
+          throw new RuntimeException("desktop doesn't support mailto");
         }
 
     }
     private static void createGUI() {
         JFrame.setDefaultLookAndFeelDecorated(true);
-
         //Create and set up the window.
         LocalNote frame = new LocalNote();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Display the window.
         frame.setVisible(true);
+        frame.setUndecorated(true);
     }
 
     public static void main(String[] args) {
