@@ -217,21 +217,17 @@ public class LocalNote extends JFrame
     public void actionPerformed(ActionEvent e) {
         if ("new".equals(e.getActionCommand())) { //new
             createFrame();
-        }
-        else if ("audio".equals(e.getActionCommand())) { //audio
+        } else if ("audio".equals(e.getActionCommand())) { //audio
             audioNote();
-        }
-            else if ("save".equals(e.getActionCommand())) { //save
+        } else if ("save".equals(e.getActionCommand())) { //save
             saveNote();
         } else if ("open".equals(e.getActionCommand())) { //open
             open();
         } else if ("quit".equals(e.getActionCommand())) { //quit
             quit();
-        }
-          else if ("about".equals(e.getActionCommand())) { //about
+        } else if ("about".equals(e.getActionCommand())) { //about
             about();
-        }
-          else if ("email".equals(e.getActionCommand())) { //email
+        } else if ("email".equals(e.getActionCommand())) { //email
             try {
                 email("Local%20Note%20Help");
             } catch ( IOException x ) {
@@ -239,8 +235,7 @@ public class LocalNote extends JFrame
             } catch ( URISyntaxException x ) {
                 x.printStackTrace();
             }
-        }
-          else if ("bug".equals(e.getActionCommand())) { //bug report
+        } else if ("bug".equals(e.getActionCommand())) { //bug report
               try {
                   email("Bug%20Report");
               } catch ( IOException x ) {
@@ -251,6 +246,7 @@ public class LocalNote extends JFrame
           }
     }
 
+    //Create Internal frame with a button showing audio icon
     private void audioNote() {
         noteFrame frame = new noteFrame();
         frame.setVisible(true);

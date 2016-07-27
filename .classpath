@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/google-api-services-calendar-v3-rev201-1.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/google-api-client-1.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/google-oauth-client-1.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/google-http-client-1.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/jsr305-1.3.9.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/google-api-client-java6-1.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/google-oauth-client-java6-1.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/httpclient-4.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/httpcore-4.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/google-api-client-jackson2-1.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/google-http-client-jackson2-1.22.0.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/jetty-6.1.26.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/jetty-util-6.1.26.jar"/>
+	<classpathentry kind="lib" path="C:/data/ics499/calendar/libs/google-oauth-client-jetty-1.22.0.jar"/>
+	<classpathentry kind="output" path="build/eclipse"/>
+</classpath>
