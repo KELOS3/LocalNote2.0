@@ -32,7 +32,7 @@ public class LocalNote extends JFrame
         this.setContentPane(desktop);
 
         this.setJMenuBar(createMenues());
-        desktop.setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
+        desktop.setDragMode(JDesktopPane.LIVE_DRAG_MODE);
 
     }
 
@@ -59,6 +59,8 @@ public class LocalNote extends JFrame
 
         //File->New->Audio
         menuItem = new JMenuItem("Audio");
+        menuItem.setActionCommand("audio");
+        menuItem.addActionListener(this);
         subMenu.add(menuItem);
 
         //File->New->Image
@@ -215,7 +217,11 @@ public class LocalNote extends JFrame
     public void actionPerformed(ActionEvent e) {
         if ("new".equals(e.getActionCommand())) { //new
             createFrame();
-        } else if ("save".equals(e.getActionCommand())) { //save
+        }
+        else if ("audio".equals(e.getActionCommand())) { //audio
+            audioNote();
+        }
+            else if ("save".equals(e.getActionCommand())) { //save
             saveNote();
         } else if ("open".equals(e.getActionCommand())) { //open
             open();
@@ -245,11 +251,25 @@ public class LocalNote extends JFrame
           }
     }
 
+    private void audioNote() {
+        noteFrame frame = new noteFrame();
+        frame.setVisible(true);
+        JButton button = new JButton(new ImageIcon("./resources/audioIcon.png"));
+        frame.add(button);
+        frame.setSize(128,128);
+        desktop.add(frame);
+        try {
+            frame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+        }
+    }
+
     //Create a new internal frame.
     protected void createFrame() {
         noteFrame frame = new noteFrame();
         frame.setVisible(true);
         desktop.add(frame);
+        frame.title = "Untitled";
         try {
             frame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
